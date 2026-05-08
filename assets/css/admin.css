@@ -1,0 +1,152 @@
+/* ============================================
+   ADMIN SPECIFIC STYLES
+   ============================================ */
+
+/* Detail pendaftaran page */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.detail-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+}
+.detail-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-light);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: var(--text-muted); flex-shrink: 0; }
+.detail-val { font-weight: 600; text-align: right; }
+
+.dokumen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+.doc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    transition: var(--transition-fast);
+}
+.doc-item:hover { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+.doc-icon { font-size: 20px; }
+
+/* Decision panel */
+.decision-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+}
+.decision-panel h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+.decision-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-accept {
+    flex: 1;
+    padding: 12px;
+    background: rgba(16,185,129,0.15);
+    color: #34d399;
+    border: 1.5px solid rgba(16,185,129,0.3);
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-accept:hover { background: rgba(16,185,129,0.25); transform: translateY(-2px); }
+.btn-reject {
+    flex: 1;
+    padding: 12px;
+    background: rgba(239,68,68,0.15);
+    color: #f87171;
+    border: 1.5px solid rgba(239,68,68,0.3);
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-reject:hover { background: rgba(239,68,68,0.25); transform: translateY(-2px); }
+
+/* Laporan page */
+.chart-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+}
+.chart-header { margin-bottom: 20px; }
+.chart-header h3 { font-size: 16px; font-weight: 700; }
+.chart-header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+/* Bar chart custom */
+.bar-chart { display: flex; flex-direction: column; gap: 12px; }
+.bar-item { display: flex; align-items: center; gap: 12px; }
+.bar-label { width: 140px; font-size: 13px; color: var(--text-muted); flex-shrink: 0; text-align: right; }
+.bar-track {
+    flex: 1;
+    height: 28px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+.bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+}
+.bar-primary { background: var(--grad-primary); }
+.bar-success { background: var(--grad-success); }
+.bar-danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.bar-warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .detail-grid { grid-template-columns: 1fr; }
+    .dokumen-grid { grid-template-columns: 1fr; }
+    .chart-grid { grid-template-columns: 1fr; }
+    .decision-buttons { flex-direction: column; }
+    .bar-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .bar-label { width: 100%; text-align: left; }
+}
