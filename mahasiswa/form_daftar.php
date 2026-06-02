@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <a href="../index.php">
-                <span class="brand-icon">🎓</span>
+                <img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img">
                 <span>BeasiswaKu</span>
             </a>
         </div>

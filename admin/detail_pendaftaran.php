@@ -6,14 +6,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once __DIR__ . '/../config/db.php';
 
-$isAdmin = $_SESSION['user_role'] === 'admin';
+$isAdmin = in_array($_SESSION['user_role'], ['admin', 'super_admin']);
 $userId = $_SESSION['user_id'];
 $id = (int)($_GET['id'] ?? 0);
 
 $whereUser = $isAdmin ? '' : "AND p.user_id = $userId";
 $pendaftaran = fetchOne("
     SELECT p.*, u.nama as mahasiswa_nama, u.email, 
-           b.nama_beasiswa, b.nominal, b.deadline, b.deskripsi as b_desc
+    b.nama_beasiswa, b.nominal, b.deadline, b.deskripsi as b_desc
     FROM pendaftaran p
     JOIN users u ON p.user_id = u.id
     JOIN beasiswa b ON p.beasiswa_id = b.id
@@ -44,7 +44,7 @@ $basePath = $isAdmin ? '../' : '../';
     <aside class="sidebar <?= $isAdmin ? 'admin-sidebar' : '' ?>" id="sidebar">
         <div class="sidebar-brand">
             <a href="<?= $basePath ?>index.php">
-                <span class="brand-icon">🎓</span><span>BeasiswaKu</span>
+                <img src="<?= $basePath ?>assets/img/logo.png" alt="Logo" class="brand-logo-img"><span>BeasiswaKu</span>
             </a>
             <?php if ($isAdmin): ?><span class="admin-badge">ADMIN</span><?php endif; ?>
         </div>

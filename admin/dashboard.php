@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['admin', 'super_admin'])) {
     header('Location: ../auth/login.php');
     exit;
 }
@@ -43,7 +43,7 @@ $adminNama = $_SESSION['user_nama'];
     <aside class="sidebar admin-sidebar" id="sidebar">
         <div class="sidebar-brand">
             <a href="../index.php">
-                <span class="brand-icon">🎓</span>
+                <img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img">
                 <span>BeasiswaKu</span>
             </a>
             <span class="admin-badge">ADMIN</span>

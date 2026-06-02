@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="dashboard-page">
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand"><a href="../index.php"><span class="brand-icon">🎓</span><span>BeasiswaKu</span></a></div>
+        <div class="sidebar-brand"><a href="../index.php"><img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img"><span>BeasiswaKu</span></a></div>
         <nav class="sidebar-nav">
             <a href="dashboard.php" class="nav-item"><span class="ni-icon">🏠</span><span>Dashboard</span></a>
             <a href="daftar_beasiswa.php" class="nav-item"><span class="ni-icon">🎓</span><span>Daftar Beasiswa</span></a>
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Avatar -->
             <div class="dash-section" style="padding:32px; text-align:center; margin-bottom:20px;">
-                <div style="width:80px;height:80px;border-radius:50%;background:var(--grad-primary);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:32px;margin:0 auto 16px;">
+                <div style="width:76px;height:76px;border-radius:50%;background:var(--grad-primary);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;margin:0 auto 14px;color:#0d1b2a;box-shadow:var(--shadow-teal);">
                     <?= strtoupper(substr($user['nama'], 0, 1)) ?>
                 </div>
                 <h3 style="font-size:20px; font-weight:700;"><?= htmlspecialchars($user['nama']) ?></h3>

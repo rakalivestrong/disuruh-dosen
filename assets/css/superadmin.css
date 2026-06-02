@@ -1,0 +1,253 @@
+/* ============================================
+   SUPERADMIN STYLES — Dark Navy + Teal
+   ============================================ */
+
+:root {
+    --sa-gold: #f59e0b;
+    --sa-gold-light: #fbbf24;
+    --sa-gold-dim: rgba(245, 158, 11, 0.12);
+    --sa-gold-border: rgba(245, 158, 11, 0.3);
+}
+
+/* ---- Sidebar ---- */
+.superadmin-page .sidebar {
+    background: var(--bg-sidebar);
+}
+
+/* ---- SA Badge ---- */
+.sa-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--sa-gold-dim);
+    color: var(--sa-gold-light);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    margin-top: 6px;
+    border: 1px solid var(--sa-gold-border);
+}
+
+/* ---- Nav Group Labels ---- */
+.nav-group-label {
+    padding: 12px 14px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+/* ---- Section title ---- */
+.sa-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sa-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ---- Stats Grid override ---- */
+.sa-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    margin-bottom: 20px;
+}
+
+/* ---- Gold Stat Card ---- */
+.sa-card-gold {
+    background: var(--sa-gold-dim);
+    border-color: var(--sa-gold-border) !important;
+}
+.sa-card-gold .sc-num {
+    color: var(--sa-gold-light) !important;
+}
+
+/* ---- Dana card ---- */
+.sa-dana-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 6px;
+}
+.sa-dana-icon { font-size: 36px; }
+.sa-dana-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sa-dana-amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+}
+.sa-dana-badge {
+    margin-left: auto;
+    padding: 5px 12px;
+    background: var(--primary-dim);
+    border: 1px solid var(--primary-border);
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ---- Alert Banner ---- */
+.sa-alert-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--warning-dim);
+    border: 1px solid var(--warning-border);
+    border-radius: var(--radius);
+    padding: 11px 16px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: var(--sa-gold-light);
+}
+.sa-alert-banner a {
+    margin-left: auto;
+    color: var(--sa-gold);
+    font-weight: 700;
+    text-decoration: none;
+}
+.sa-alert-banner a:hover { text-decoration: underline; }
+
+/* ---- Quick Actions override ---- */
+.sa-quick-actions {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+/* ---- User info footer ---- */
+.sa-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--primary-dim);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    border: 1px solid var(--primary-border);
+}
+.sa-avatar {
+    width: 34px;
+    height: 34px;
+    background: var(--grad-primary);
+    color: #0d1b2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.sa-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.sa-role { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ---- Role Badges ---- */
+.sa-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.sa-role-badge.sa {
+    background: var(--sa-gold-dim);
+    border: 1px solid var(--sa-gold-border);
+    color: var(--sa-gold-light);
+}
+.sa-role-badge.admin {
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: #a78bfa;
+}
+.sa-role-badge.mhs {
+    background: var(--primary-dim);
+    border: 1px solid var(--primary-border);
+    color: var(--primary);
+}
+
+/* ---- Mini Avatar ---- */
+.mini-avatar {
+    width: 30px;
+    height: 30px;
+    background: var(--grad-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: #0d1b2a;
+}
+.mini-avatar.admin-av {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: #fff;
+}
+
+/* ---- SA Header badge ---- */
+.sa-header-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sa-gold-dim);
+    border: 1px solid var(--sa-gold-border);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sa-gold-light);
+}
+.crown-icon { font-size: 16px; }
+
+/* ---- Chart area ---- */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+/* ---- Print styles ---- */
+@media (max-width: 600px) {
+    .sa-dana-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .sa-dana-badge {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media print {
+    .sidebar, .dash-header, .filter-bar, .quick-actions,
+    .sa-alert-banner, .btn-outline, .sidebar-toggle { display: none !important; }
+    .main-content { margin: 0 !important; padding: 20px !important; }
+    body { background: #fff !important; color: #000 !important; }
+}

@@ -29,7 +29,7 @@ $beasiswaTersedia = fetchAll("
 <body class="dashboard-page">
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <a href="../index.php"><span class="brand-icon">🎓</span><span>BeasiswaKu</span></a>
+            <a href="../index.php"><img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img"><span>BeasiswaKu</span></a>
         </div>
         <nav class="sidebar-nav">
             <a href="dashboard.php" class="nav-item"><span class="ni-icon">🏠</span><span>Dashboard</span></a>
@@ -44,7 +44,7 @@ $beasiswaTersedia = fetchAll("
     <main class="main-content">
         <header class="dash-header">
             <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-            <div class="dash-header-info"><h2>Beasiswa Tersedia</h2><p>Pilih beasiswa yang sesuai kriteriamu</p></div>
+            <div class="dash-header-info"><h2>Beasiswa Tersedia</h2><p>Pilih Beasiswa sesuai kriteriamu</p></div>
         </header>
         <div class="beasiswa-available-grid">
             <?php if (empty($beasiswaTersedia)): ?>

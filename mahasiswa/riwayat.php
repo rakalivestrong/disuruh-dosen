@@ -28,7 +28,7 @@ $riwayat = fetchAll("
 </head>
 <body class="dashboard-page">
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand"><a href="../index.php"><span class="brand-icon">🎓</span><span>BeasiswaKu</span></a></div>
+        <div class="sidebar-brand"><a href="../index.php"><img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img"><span>BeasiswaKu</span></a></div>
         <nav class="sidebar-nav">
             <a href="dashboard.php" class="nav-item"><span class="ni-icon">🏠</span><span>Dashboard</span></a>
             <a href="daftar_beasiswa.php" class="nav-item"><span class="ni-icon">🎓</span><span>Daftar Beasiswa</span></a>

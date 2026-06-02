@@ -5,13 +5,13 @@
 CREATE DATABASE IF NOT EXISTS db_beasiswa;
 USE db_beasiswa;
 
--- Tabel Users (Admin & Mahasiswa)
+-- Tabel Users (Super Admin, Admin & Mahasiswa)
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'mahasiswa') DEFAULT 'mahasiswa',
+    role ENUM('super_admin', 'admin', 'mahasiswa') DEFAULT 'mahasiswa',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -66,6 +66,13 @@ CREATE TABLE IF NOT EXISTS notifikasi (
 -- ============================================
 -- DATA AWAL (SEED)
 -- ============================================
+
+-- Super Admin default
+-- Gunakan reset_superadmin.php untuk generate hash yang benar
+-- atau jalankan: php -r "echo password_hash('superadmin123', PASSWORD_BCRYPT);"
+-- Lalu ganti hash di bawah ini
+INSERT INTO users (nama, email, password, role) VALUES
+('Super Administrator', 'superadmin@beasiswa.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'super_admin');
 
 -- Admin default (password: admin123)
 INSERT INTO users (nama, email, password, role) VALUES

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['admin', 'super_admin'])) {
     header('Location: ../auth/login.php');
     exit;
 }
@@ -72,7 +72,7 @@ $daftarBeasiswa = fetchAll("SELECT id, nama_beasiswa FROM beasiswa ORDER BY nama
 <body class="dashboard-page">
     <aside class="sidebar admin-sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <a href="../index.php"><span class="brand-icon">🎓</span><span>BeasiswaKu</span></a>
+            <a href="../index.php"><img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img"><span>BeasiswaKu</span></a>
             <span class="admin-badge">ADMIN</span>
         </div>
         <nav class="sidebar-nav">

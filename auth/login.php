@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_nama'] = $user['nama'];
         $_SESSION['user_role'] = $user['role'];
-        if ($user['role'] === 'admin') {
+        if ($user['role'] === 'super_admin') {
+            header('Location: ../superadmin/dashboard.php');
+        } elseif ($user['role'] === 'admin') {
             header('Location: ../admin/dashboard.php');
         } else {
             header('Location: ../mahasiswa/dashboard.php');
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <div class="auth-container">
         <!-- Logo / Brand -->
         <div class="auth-brand">
-            <div class="brand-icon">🎓</div>
+            <img src="../assets/img/logo.png" alt="Logo" class="auth-brand-logo">
             <h1>BeasiswaKu</h1>
             <p>Sistem Informasi Beasiswa Mahasiswa</p>
         </div>
@@ -117,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             </button>
             <p class="auth-footer-text">Belum punya akun? <a href="#" onclick="switchTab('register')">Daftar sekarang</a></p>
             <div class="demo-info">
+                <strong>Demo Super Admin:</strong> superadmin@beasiswa.com / superadmin123<br>
                 <strong>Demo Admin:</strong> admin@beasiswa.com / password
             </div>
         </form>

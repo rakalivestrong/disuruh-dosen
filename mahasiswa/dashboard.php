@@ -23,13 +23,15 @@ $daftarBeasiswaId = array_column($pendaftaran, 'beasiswa_id');
 $excludeClause = !empty($daftarBeasiswaId) ? 'AND id NOT IN (' . implode(',', $daftarBeasiswaId) . ')' : '';
 $beasiswaTersedia = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' $excludeClause ORDER BY deadline ASC");
 
-// Notifikasi belum dibaca
-$notif = fetchAll("SELECT * FROM notifikasi WHERE user_id = $userId AND dibaca = 0 ORDER BY created_at DESC");
-$notifCount = count($notif);
+// Notifikasi (semua, bukan hanya yang belum dibaca)
+$notif = fetchAll("SELECT * FROM notifikasi WHERE user_id = $userId ORDER BY created_at DESC LIMIT 15");
+$notifCount = fetchOne("SELECT COUNT(*) as c FROM notifikasi WHERE user_id = $userId AND dibaca = 0")['c'];
 
-// Mark all as read
-if ($notifCount > 0) {
+// Mark as read via AJAX
+if (isset($_GET['mark_read']) && $_GET['mark_read'] === '1') {
     query("UPDATE notifikasi SET dibaca = 1 WHERE user_id = $userId");
+    echo json_encode(['success' => true]);
+    exit;
 }
 
 // Statistik
@@ -48,13 +50,14 @@ $ditolak = count(array_filter($pendaftaran, fn($p) => $p['status'] === 'ditolak'
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/notif.css">
 </head>
 <body class="dashboard-page">
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <a href="../index.php">
-                <span class="brand-icon">🎓</span>
+                <img src="../assets/img/logo.png" alt="Logo" class="brand-logo-img">
                 <span>BeasiswaKu</span>
             </a>
         </div>
@@ -94,27 +97,45 @@ $ditolak = count(array_filter($pendaftaran, fn($p) => $p['status'] === 'ditolak'
                 <p><?= date('l, d F Y') ?></p>
             </div>
             <div class="dash-header-actions">
-                <?php if ($notifCount > 0): ?>
-                <div class="notif-badge">
-                    <span>🔔</span>
-                    <span class="badge-count"><?= $notifCount ?></span>
+                <!-- Notification Bell -->
+                <div class="notif-wrapper" id="notifWrapper">
+                    <button class="notif-badge" id="notifBtn" onclick="toggleNotif()" title="Notifikasi">
+                        <span>🔔</span>
+                        <?php if ($notifCount > 0): ?>
+                        <span class="badge-count" id="badgeCount"><?= $notifCount ?></span>
+                        <?php endif; ?>
+                    </button>
+                    <!-- Dropdown Panel -->
+                    <div class="notif-dropdown hidden" id="notifDropdown">
+                        <div class="notif-dd-header">
+                            <span>🔔 Notifikasi</span>
+                            <?php if ($notifCount > 0): ?>
+                            <button onclick="markAllRead()" class="notif-mark-btn">Tandai semua dibaca</button>
+                            <?php endif; ?>
+                        </div>
+                        <div class="notif-dd-body">
+                            <?php if (empty($notif)): ?>
+                            <div class="notif-empty">📭 Belum ada notifikasi</div>
+                            <?php else: ?>
+                            <?php foreach ($notif as $n): ?>
+                            <div class="notif-dd-item <?= $n['dibaca'] ? '' : 'unread' ?>">
+                                <div class="notif-dot"></div>
+                                <div class="notif-content">
+                                    <p><?= htmlspecialchars($n['pesan']) ?></p>
+                                    <span><?= date('d M Y, H:i', strtotime($n['created_at'])) ?></span>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
-                <?php endif; ?>
                 <div class="user-avatar"><?= strtoupper(substr($userNama, 0, 1)) ?></div>
             </div>
         </header>
 
-        <!-- Notifikasi -->
-        <?php if (!empty($notif)): ?>
-        <div class="notif-bar">
-            <?php foreach ($notif as $n): ?>
-            <div class="notif-item">
-                <span>🔔</span>
-                <?= htmlspecialchars($n['pesan']) ?>
-            </div>
-            <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
+        <!-- Notif section removed: now using dropdown -->
+
 
         <!-- Stats Cards -->
         <div class="stats-grid">

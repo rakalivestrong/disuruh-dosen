@@ -93,3 +93,40 @@ function showToast(message, type = 'success') {
         setTimeout(() => toast.remove(), 400);
     }, 3500);
 }
+
+// Notification Dropdown Logic
+function toggleNotif() {
+    const dropdown = document.getElementById('notifDropdown');
+    dropdown.classList.toggle('hidden');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const wrapper = document.getElementById('notifWrapper');
+    const dropdown = document.getElementById('notifDropdown');
+    if (wrapper && dropdown && !wrapper.contains(e.target)) {
+        dropdown.classList.add('hidden');
+    }
+});
+
+// Mark all as read via AJAX
+function markAllRead() {
+    fetch('?mark_read=1')
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                // Remove badge
+                const badge = document.getElementById('badgeCount');
+                if (badge) badge.remove();
+                
+                // Remove unread styling from items
+                document.querySelectorAll('.notif-dd-item.unread').forEach(item => {
+                    item.classList.remove('unread');
+                });
+                
+                // Hide mark as read button
+                const markBtn = document.querySelector('.notif-mark-btn');
+                if (markBtn) markBtn.remove();
+            }
+        });
+}

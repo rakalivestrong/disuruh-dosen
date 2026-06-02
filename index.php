@@ -31,7 +31,9 @@ $beasiswaList = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' ORDER BY
             </div>
             <div class="nav-auth">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <?php if ($_SESSION['user_role'] === 'admin'): ?>
+                    <?php if ($_SESSION['user_role'] === 'super_admin'): ?>
+                        <a href="superadmin/dashboard.php" class="btn-outline">Dashboard Super Admin</a>
+                    <?php elseif ($_SESSION['user_role'] === 'admin'): ?>
                         <a href="admin/dashboard.php" class="btn-outline">Dashboard Admin</a>
                     <?php else: ?>
                         <a href="mahasiswa/dashboard.php" class="btn-outline">Dashboard Saya</a>
