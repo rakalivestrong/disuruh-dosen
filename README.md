@@ -55,11 +55,12 @@ http://localhost/project/
 
 | Role | Email | Password |
 |------|-------|----------|
+| **Super Admin** | superadmin@beasiswa.com | superadmin123 |
 | **Admin** | admin@beasiswa.com | password |
 
-> **Catatan:** Password di database disimpan sebagai hash. Password demo adalah `password`.
+> **Catatan:** Password di database disimpan sebagai hash.
 > 
-> ⚠️ Saat pertama login sebagai admin, gunakan email `admin@beasiswa.com` dan password `password`.
+> ⚠️ Gunakan akun demo di atas untuk login pertama kali sesuai role.
 
 ---
 
@@ -67,6 +68,13 @@ http://localhost/project/
 
 ```
 project/
+├── 📁 superadmin/          # Halaman superadmin
+│   ├── dashboard.php       # Dashboard utama superadmin
+│   ├── kelola_admin.php    # CRUD admin
+│   ├── kelola_users.php    # Kelola semua user (mahasiswa & admin)
+│   ├── kelola_beasiswa.php # CRUD program beasiswa
+│   └── laporan.php         # Laporan & statistik
+│
 ├── 📁 admin/               # Halaman admin
 │   ├── dashboard.php       # Dashboard admin
 │   ├── kelola_beasiswa.php # CRUD beasiswa
@@ -97,7 +105,9 @@ project/
 │   │   ├── beranda.css     # Landing page
 │   │   ├── dashboard.css   # Dashboard
 │   │   ├── form.css        # Form pendaftaran
-│   │   └── admin.css       # Admin-specific
+│   │   ├── admin.css       # Admin-specific
+│   │   ├── superadmin.css  # Superadmin-specific
+│   │   └── notif.css       # Notification styles
 │   └── 📁 js/
 │       ├── main.js         # Landing page JS
 │       ├── auth.js         # Login page JS
@@ -117,15 +127,12 @@ project/
 
 ## Fitur Sistem
 
-### 👤 Mahasiswa
-- ✅ Registrasi & Login
-- ✅ Lihat beasiswa tersedia
-- ✅ Daftar beasiswa (dengan upload dokumen)
-- ✅ Validasi IPK & penghasilan otomatis
-- ✅ Pantau status pendaftaran real-time
-- ✅ Notifikasi keputusan beasiswa
-- ✅ Riwayat pendaftaran
-- ✅ Edit profil & ganti password
+### 👑 Super Admin
+- ✅ Dashboard statistik global (total pengguna, admin, beasiswa, pendaftaran)
+- ✅ Manajemen Admin (CRUD & aktivasi/nonaktifkan)
+- ✅ Manajemen Semua Pengguna (Admin & Mahasiswa)
+- ✅ Manajemen Program Beasiswa (CRUD)
+- ✅ Laporan & statistik visual
 
 ### 🔐 Admin
 - ✅ Dashboard statistik lengkap
@@ -135,6 +142,16 @@ project/
 - ✅ Kirim notifikasi otomatis ke mahasiswa
 - ✅ Data mahasiswa terdaftar
 - ✅ Laporan & statistik visual
+
+### 👤 Mahasiswa
+- ✅ Registrasi & Login
+- ✅ Lihat beasiswa tersedia
+- ✅ Daftar beasiswa (dengan upload dokumen)
+- ✅ Validasi IPK & penghasilan otomatis
+- ✅ Pantau status pendaftaran real-time
+- ✅ Notifikasi keputusan beasiswa
+- ✅ Riwayat pendaftaran
+- ✅ Edit profil & ganti password
 
 ---
 
