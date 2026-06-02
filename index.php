@@ -21,7 +21,7 @@ $beasiswaList = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' ORDER BY
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.php" class="nav-brand">
-                <span class="brand-icon">🎓</span>
+                <img src="assets/img/logo.png" alt="Logo" class="brand-logo-img">
                 <span>BeasiswaKu</span>
             </a>
             <div class="nav-links">
@@ -128,7 +128,8 @@ $beasiswaList = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' ORDER BY
             <div class="hero-phone">
                 <div class="phone-screen">
                     <div class="ps-header">
-                        <span>🎓 BeasiswaKu</span>
+                        <img src="assets/img/logo.png" alt="Logo" class="brand-logo-img" style="height: 18px; margin-right: 4px;">
+                        <span>BeasiswaKu</span>
                         <span class="ps-notif">3</span>
                     </div>
                     <div class="ps-card">
@@ -283,7 +284,7 @@ $beasiswaList = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' ORDER BY
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="index.php" class="nav-brand">
-                        <span class="brand-icon">🎓</span>
+                        <img src="assets/img/logo.png" alt="Logo" class="brand-logo-img">
                         <span>BeasiswaKu</span>
                     </a>
                     <p>Platform pendaftaran beasiswa mahasiswa yang mudah dan transparan.</p>
