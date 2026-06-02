@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'super_admin') {
 require_once __DIR__ . '/../config/db.php';
 
 // Statistik sistem keseluruhan
-$totalUsers      = fetchOne("SELECT COUNT(*) as c FROM users")['c'];
+$totalUsers      = fetchOne("SELECT COUNT(*) as c FROM users WHERE role != 'super_admin'")['c'];
 $totalMahasiswa  = fetchOne("SELECT COUNT(*) as c FROM users WHERE role = 'mahasiswa'")['c'];
 $totalAdmin      = fetchOne("SELECT COUNT(*) as c FROM users WHERE role = 'admin'")['c'];
 $totalBeasiswa   = fetchOne("SELECT COUNT(*) as c FROM beasiswa")['c'];
@@ -123,7 +123,6 @@ $superNama = $_SESSION['user_nama'];
                     <span class="sc-num"><?= $totalUsers ?></span>
                     <span class="sc-label">Total Pengguna</span>
                 </div>
-                <div class="sc-sub"><?= $totalAdmin ?> admin • <?= $totalMahasiswa ?> mahasiswa</div>
             </div>
             <div class="stat-card stat-purple">
                 <div class="sc-icon">🎓</div>
@@ -162,7 +161,7 @@ $superNama = $_SESSION['user_nama'];
                 <div class="sa-dana-label">Total Dana Beasiswa Tersalurkan</div>
                 <div class="sa-dana-amount"><?= formatRupiah($danaTersalurkan) ?> / bulan</div>
             </div>
-            <div class="sa-dana-badge">Kumulatif dari <?= $totalDiterima ?> penerizma</div>
+            <div class="sa-dana-badge">Kumulatif dari <?= $totalDiterima ?> penerima</div>
         </div>
 
         <!-- Quick Actions -->

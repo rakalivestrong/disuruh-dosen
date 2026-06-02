@@ -110,7 +110,6 @@ $maxReg = max(array_column($regPerBulan, 'total') ?: [1]);
                     <span class="sc-num" style="font-size:20px"><?= formatRupiah($danaTersalurkan) ?></span>
                     <span class="sc-label">Dana Tersalurkan/Bulan</span>
                 </div>
-                <div class="sc-sub">kepada <?= $totalDiterima ?> penerima aktif</div>
             </div>
             <div class="stat-card stat-blue">
                 <div class="sc-icon">👥</div>
@@ -118,7 +117,6 @@ $maxReg = max(array_column($regPerBulan, 'total') ?: [1]);
                     <span class="sc-num"><?= $totalUsers ?></span>
                     <span class="sc-label">Total User Aktif</span>
                 </div>
-                <div class="sc-sub"><?= $totalAdmin ?> admin &bull; <?= $totalMahasiswa ?> mahasiswa</div>
             </div>
             <div class="stat-card stat-purple">
                 <div class="sc-icon">🎓</div>
@@ -170,10 +168,17 @@ $maxReg = max(array_column($regPerBulan, 'total') ?: [1]);
                     ?>
                     <div class="bar-item">
                         <span class="bar-label"><?= $label ?></span>
-                        <div class="bar-track">
-                            <div class="bar-fill <?= $cls ?>" style="width: <?= $pct ?>%">
-                                <?= $pct > 10 ? "$val ($pct%)" : '' ?>
+                        <div class="bar-track" style="position: relative; overflow: visible;">
+                            <div class="bar-fill <?= $cls ?>" style="width: <?= $pct ?>%; <?= $val == 0 ? 'display: none;' : '' ?>">
+                                <?php if ($pct >= 35): ?>
+                                    <?= "$val ($pct%)" ?>
+                                <?php endif; ?>
                             </div>
+                            <?php if ($pct < 35): ?>
+                                <span style="position: absolute; left: calc(<?= $pct ?>% + 8px); top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap;">
+                                    <?= "$val ($pct%)" ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -193,8 +198,17 @@ $maxReg = max(array_column($regPerBulan, 'total') ?: [1]);
                     ?>
                     <div class="bar-item">
                         <span class="bar-label"><?= $b['label'] ?></span>
-                        <div class="bar-track">
-                            <div class="bar-fill bar-primary" style="width: <?= $pct ?>%"><?= $b['total'] ?></div>
+                        <div class="bar-track" style="position: relative; overflow: visible;">
+                            <div class="bar-fill bar-primary" style="width: <?= $pct ?>%; <?= $b['total'] == 0 ? 'display: none;' : '' ?>">
+                                <?php if ($pct >= 15): ?>
+                                    <?= $b['total'] ?>
+                                <?php endif; ?>
+                            </div>
+                            <?php if ($pct < 15 && $b['total'] > 0): ?>
+                                <span style="position: absolute; left: calc(<?= $pct ?>% + 8px); top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap;">
+                                    <?= $b['total'] ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -217,8 +231,17 @@ $maxReg = max(array_column($regPerBulan, 'total') ?: [1]);
                     ?>
                     <div class="bar-item">
                         <span class="bar-label"><?= $r['label'] ?></span>
-                        <div class="bar-track">
-                            <div class="bar-fill" style="width: <?= $pct ?>%; background: var(--sa-gold)"><?= $r['total'] ?></div>
+                        <div class="bar-track" style="position: relative; overflow: visible;">
+                            <div class="bar-fill" style="width: <?= $pct ?>%; background: var(--sa-gold); <?= $r['total'] == 0 ? 'display: none;' : '' ?>">
+                                <?php if ($pct >= 15): ?>
+                                    <?= $r['total'] ?>
+                                <?php endif; ?>
+                            </div>
+                            <?php if ($pct < 15 && $r['total'] > 0): ?>
+                                <span style="position: absolute; left: calc(<?= $pct ?>% + 8px); top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap;">
+                                    <?= $r['total'] ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -246,10 +269,17 @@ $maxReg = max(array_column($regPerBulan, 'total') ?: [1]);
                     ?>
                     <div class="bar-item">
                         <span class="bar-label"><?= $label ?></span>
-                        <div class="bar-track">
-                            <div class="bar-fill <?= $cls ?>" style="width: <?= $pct ?>%">
-                                <?= $pct > 10 ? "$val ($pct%)" : '' ?>
+                        <div class="bar-track" style="position: relative; overflow: visible;">
+                            <div class="bar-fill <?= $cls ?>" style="width: <?= $pct ?>%; <?= $val == 0 ? 'display: none;' : '' ?>">
+                                <?php if ($pct >= 35): ?>
+                                    <?= "$val ($pct%)" ?>
+                                <?php endif; ?>
                             </div>
+                            <?php if ($pct < 35): ?>
+                                <span style="position: absolute; left: calc(<?= $pct ?>% + 8px); top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap;">
+                                    <?= "$val ($pct%)" ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php endforeach; ?>
