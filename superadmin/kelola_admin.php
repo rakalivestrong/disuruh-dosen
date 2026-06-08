@@ -70,7 +70,7 @@ $showForm = isset($_GET['action']) && $_GET['action'] === 'tambah' || $editData 
 
 $adminList = fetchAll("
     SELECT u.*, 
-           COUNT(DISTINCT p.id) as total_pendaftaran_diproses
+    COUNT(DISTINCT p.id) as total_pendaftaran_diproses
     FROM users u
     LEFT JOIN pendaftaran p ON 1=1
     WHERE u.role = 'admin'
@@ -206,8 +206,8 @@ $adminList = fetchAll("
                             <td class="td-actions">
                                 <a href="kelola_admin.php?edit=<?= $a['id'] ?>" class="btn-edit">Edit</a>
                                 <a href="kelola_admin.php?delete=<?= $a['id'] ?>"
-                                   class="btn-delete"
-                                   onclick="return confirm('Hapus admin <?= htmlspecialchars($a['nama']) ?>? Tindakan ini tidak dapat dibatalkan.')">Hapus</a>
+                                class="btn-delete"
+                                onclick="return confirm('Hapus admin <?= htmlspecialchars($a['nama']) ?>? Tindakan ini tidak dapat dibatalkan.')">Hapus</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

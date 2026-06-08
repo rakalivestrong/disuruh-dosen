@@ -9,10 +9,10 @@ require_once __DIR__ . '/../config/db.php';
 // Data laporan
 $statsByBeasiswa = fetchAll("
     SELECT b.nama_beasiswa, 
-           COUNT(p.id) as total,
-           SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as diterima,
-           SUM(CASE WHEN p.status='ditolak' THEN 1 ELSE 0 END) as ditolak,
-           SUM(CASE WHEN p.status='menunggu' THEN 1 ELSE 0 END) as menunggu
+    COUNT(p.id) as total,
+    SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as diterima,
+    SUM(CASE WHEN p.status='ditolak' THEN 1 ELSE 0 END) as ditolak,
+    SUM(CASE WHEN p.status='menunggu' THEN 1 ELSE 0 END) as menunggu
     FROM beasiswa b
     LEFT JOIN pendaftaran p ON b.id = p.beasiswa_id
     GROUP BY b.id, b.nama_beasiswa
@@ -27,8 +27,8 @@ $totalMenunggu = fetchOne("SELECT COUNT(*) as c FROM pendaftaran WHERE status='m
 // Pendaftar per bulan (6 bulan terakhir)
 $perBulan = fetchAll("
     SELECT DATE_FORMAT(created_at, '%Y-%m') as bulan,
-           DATE_FORMAT(created_at, '%b %Y') as label,
-           COUNT(*) as total
+    DATE_FORMAT(created_at, '%b %Y') as label,
+    COUNT(*) as total
     FROM pendaftaran
     WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
     GROUP BY bulan

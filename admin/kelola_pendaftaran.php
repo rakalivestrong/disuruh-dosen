@@ -101,7 +101,7 @@ $daftarBeasiswa = fetchAll("SELECT id, nama_beasiswa FROM beasiswa ORDER BY nama
             <form method="GET" class="filter-form">
                 <div class="filter-group">
                     <input type="text" name="q" value="<?= htmlspecialchars($searchQuery) ?>" 
-                           placeholder="🔍 Cari nama, NIM, email..." class="filter-input">
+                    placeholder="🔍 Cari nama, NIM, email..." class="filter-input">
                 </div>
                 <div class="filter-group">
                     <select name="status" class="filter-select">

@@ -25,10 +25,10 @@ $danaTersalurkan = fetchOne("
 // Statistik per beasiswa
 $statsByBeasiswa = fetchAll("
     SELECT b.nama_beasiswa, b.kuota, b.nominal,
-           COUNT(p.id) as total,
-           SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as diterima,
-           SUM(CASE WHEN p.status='ditolak' THEN 1 ELSE 0 END) as ditolak,
-           SUM(CASE WHEN p.status='menunggu' THEN 1 ELSE 0 END) as menunggu
+    COUNT(p.id) as total,
+    SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as diterima,
+    SUM(CASE WHEN p.status='ditolak' THEN 1 ELSE 0 END) as ditolak,
+    SUM(CASE WHEN p.status='menunggu' THEN 1 ELSE 0 END) as menunggu
     FROM beasiswa b
     LEFT JOIN pendaftaran p ON b.id = p.beasiswa_id
     GROUP BY b.id ORDER BY total DESC
@@ -37,8 +37,8 @@ $statsByBeasiswa = fetchAll("
 // Tren pendaftaran 6 bulan
 $perBulan = fetchAll("
     SELECT DATE_FORMAT(created_at, '%Y-%m') as bulan,
-           DATE_FORMAT(created_at, '%b %Y') as label,
-           COUNT(*) as total
+    DATE_FORMAT(created_at, '%b %Y') as label,
+    COUNT(*) as total
     FROM pendaftaran
     WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
     GROUP BY bulan ORDER BY bulan ASC
@@ -48,8 +48,8 @@ $maxBulan = max(array_column($perBulan, 'total') ?: [1]);
 // Registrasi user per bulan
 $regPerBulan = fetchAll("
     SELECT DATE_FORMAT(created_at, '%Y-%m') as bulan,
-           DATE_FORMAT(created_at, '%b %Y') as label,
-           COUNT(*) as total
+    DATE_FORMAT(created_at, '%b %Y') as label,
+    COUNT(*) as total
     FROM users
     WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND role != 'super_admin'
     GROUP BY bulan ORDER BY bulan ASC

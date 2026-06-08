@@ -186,7 +186,7 @@ $basePath = $isAdmin ? '../' : '../';
                             <div style="font-size:12px; color:var(--text-muted); margin-bottom:2px"><?= $label ?></div>
                             <?php if ($pendaftaran[$key]): ?>
                             <a href="<?= $basePath ?>uploads/<?= htmlspecialchars($pendaftaran[$key]) ?>" target="_blank"
-                               style="font-size:13px; color:var(--primary-light); font-weight:600">
+                            style="font-size:13px; color:var(--primary-light); font-weight:600">
                                 Lihat File →
                             </a>
                             <?php else: ?>
@@ -208,7 +208,7 @@ $basePath = $isAdmin ? '../' : '../';
                 <div class="form-group" style="margin-bottom:16px;">
                     <label style="font-size:13px; font-weight:600; color:var(--text-muted);">Catatan (opsional)</label>
                     <textarea id="catatanDecision" rows="3" placeholder="Tuliskan catatan atau alasan keputusan..."
-                              style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.06); border:1px solid var(--border-light); border-radius:12px; color:var(--text); font-family:inherit; font-size:14px; margin-top:6px; resize:vertical;"></textarea>
+                    style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.06); border:1px solid var(--border-light); border-radius:12px; color:var(--text); font-family:inherit; font-size:14px; margin-top:6px; resize:vertical;"></textarea>
                 </div>
                 <div class="decision-buttons">
                     <button class="btn-accept" onclick="directDecision(<?= $id ?>, 'diterima')">✅ Terima Pendaftaran</button>

@@ -51,7 +51,7 @@ $whereClause = 'WHERE ' . implode(' AND ', $where);
 
 $userList = fetchAll("
     SELECT u.*,
-           COUNT(p.id) as total_daftar
+    COUNT(p.id) as total_daftar
     FROM users u
     LEFT JOIN pendaftaran p ON u.id = p.user_id
     $whereClause
@@ -115,7 +115,7 @@ $userList = fetchAll("
             <form method="GET" class="filter-form">
                 <div class="filter-group">
                     <input type="text" name="q" value="<?= htmlspecialchars($searchQ) ?>"
-                           placeholder="🔍 Cari nama atau email..." class="filter-input">
+                        placeholder="🔍 Cari nama atau email..." class="filter-input">
                 </div>
                 <div class="filter-group">
                     <select name="role" class="filter-select">

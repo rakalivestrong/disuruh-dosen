@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id > 0) {
         query("UPDATE beasiswa SET nama_beasiswa='$nama', deskripsi='$deskripsi', syarat='$syarat', 
-               kuota=$kuota, nilai_minimum=$nilai_min, batas_pendapatan=$batas_pendapatan, 
-               deadline='$deadline', status='$status', nominal=$nominal WHERE id=$id");
+        kuota=$kuota, nilai_minimum=$nilai_min, batas_pendapatan=$batas_pendapatan, 
+        deadline='$deadline', status='$status', nominal=$nominal WHERE id=$id");
         $message = 'Beasiswa berhasil diperbarui!';
     } else {
         query("INSERT INTO beasiswa (nama_beasiswa, deskripsi, syarat, kuota, nilai_minimum, batas_pendapatan, deadline, status, nominal)
-               VALUES ('$nama', '$deskripsi', '$syarat', $kuota, $nilai_min, $batas_pendapatan, '$deadline', '$status', $nominal)");
+        VALUES ('$nama', '$deskripsi', '$syarat', $kuota, $nilai_min, $batas_pendapatan, '$deadline', '$status', $nominal)");
         $message = 'Beasiswa baru berhasil ditambahkan!';
     }
 }
@@ -202,8 +202,8 @@ $beasiswaList = fetchAll("SELECT * FROM beasiswa ORDER BY created_at DESC");
                             <td class="td-actions">
                                 <a href="kelola_beasiswa.php?edit=<?= $b['id'] ?>" class="btn-edit">Edit</a>
                                 <a href="kelola_beasiswa.php?delete=<?= $b['id'] ?>" 
-                                   class="btn-delete"
-                                   onclick="return confirm('Yakin hapus beasiswa ini?')">Hapus</a>
+                                class="btn-delete"
+                                onclick="return confirm('Yakin hapus beasiswa ini?')">Hapus</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

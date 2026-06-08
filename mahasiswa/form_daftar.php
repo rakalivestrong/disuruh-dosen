@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <label for="ipk">IPK <span class="req">*</span></label>
                             <input type="text" id="ipk" name="ipk" placeholder="Contoh: 3.75" maxlength="4"
-                                   pattern="[0-9]+([.,][0-9]{1,2})?" required>
+                            pattern="[0-9]+([.,][0-9]{1,2})?" required>
                             <small>IPK minimum: <?= number_format($beasiswa['nilai_minimum'], 2) ?></small>
                         </div>
                     </div>
@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="input-prefix">
                             <span>Rp</span>
                             <input type="text" id="penghasilan" name="penghasilan" placeholder="0" required
-                                   oninput="formatCurrency(this)">
+                            oninput="formatCurrency(this)">
                         </div>
                         <?php if ($beasiswa['batas_pendapatan'] > 0): ?>
                         <small>Maksimal: <?= formatRupiah($beasiswa['batas_pendapatan']) ?></small>
@@ -233,8 +233,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label for="alasan">Alasan Mendaftar Beasiswa <span class="req">*</span></label>
                         <textarea id="alasan" name="alasan" rows="5" 
-                                  placeholder="Tuliskan alasan kamu mendaftar beasiswa ini, motivasi, dan rencanamu ke depan..." 
-                                  minlength="100" required></textarea>
+                        placeholder="Tuliskan alasan kamu mendaftar beasiswa ini, motivasi, dan rencanamu ke depan..." 
+                        minlength="100" required></textarea>
                         <small><span id="charCount">0</span>/1000 karakter (minimal 100)</small>
                     </div>
                 </div>
@@ -247,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="foto_ktp">Foto KTP</label>
                             <div class="file-upload" id="ktp-upload">
                                 <input type="file" id="foto_ktp" name="foto_ktp" accept=".pdf,.jpg,.jpeg,.png" 
-                                       onchange="updateFileName(this, 'ktp-upload')">
+                                onchange="updateFileName(this, 'ktp-upload')">
                                 <div class="fu-content">
                                     <span class="fu-icon">📄</span>
                                     <span class="fu-text">Klik atau drag file KTP</span>
@@ -258,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="foto_ktm">Foto KTM (Kartu Mahasiswa)</label>
                             <div class="file-upload" id="ktm-upload">
                                 <input type="file" id="foto_ktm" name="foto_ktm" accept=".pdf,.jpg,.jpeg,.png"
-                                       onchange="updateFileName(this, 'ktm-upload')">
+                                onchange="updateFileName(this, 'ktm-upload')">
                                 <div class="fu-content">
                                     <span class="fu-icon">🪪</span>
                                     <span class="fu-text">Klik atau drag file KTM</span>
@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="transkrip">Transkrip Nilai</label>
                             <div class="file-upload" id="transkrip-upload">
                                 <input type="file" id="transkrip" name="transkrip" accept=".pdf,.jpg,.jpeg,.png"
-                                       onchange="updateFileName(this, 'transkrip-upload')">
+                                onchange="updateFileName(this, 'transkrip-upload')">
                                 <div class="fu-content">
                                     <span class="fu-icon">📊</span>
                                     <span class="fu-text">Klik atau drag Transkrip</span>
@@ -282,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="surat_tidak_mampu">Surat Keterangan Tidak Mampu</label>
                             <div class="file-upload" id="sktm-upload">
                                 <input type="file" id="surat_tidak_mampu" name="surat_tidak_mampu" accept=".pdf,.jpg,.jpeg,.png"
-                                       onchange="updateFileName(this, 'sktm-upload')">
+                                    onchange="updateFileName(this, 'sktm-upload')">
                                 <div class="fu-content">
                                     <span class="fu-icon">📜</span>
                                     <span class="fu-text">Klik atau drag SKTM</span>

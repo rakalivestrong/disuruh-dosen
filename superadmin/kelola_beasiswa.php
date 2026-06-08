@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id > 0) {
         query("UPDATE beasiswa SET nama_beasiswa='$nama', deskripsi='$deskripsi', syarat='$syarat', 
-               kuota=$kuota, nilai_minimum=$nilai_min, batas_pendapatan=$batas_pendapatan, 
-               deadline='$deadline', status='$status', nominal=$nominal WHERE id=$id");
+        kuota=$kuota, nilai_minimum=$nilai_min, batas_pendapatan=$batas_pendapatan, 
+        deadline='$deadline', status='$status', nominal=$nominal WHERE id=$id");
         $message = 'Beasiswa berhasil diperbarui!';
     } else {
         query("INSERT INTO beasiswa (nama_beasiswa, deskripsi, syarat, kuota, nilai_minimum, batas_pendapatan, deadline, status, nominal)
-               VALUES ('$nama', '$deskripsi', '$syarat', $kuota, $nilai_min, $batas_pendapatan, '$deadline', '$status', $nominal)");
+        VALUES ('$nama', '$deskripsi', '$syarat', $kuota, $nilai_min, $batas_pendapatan, '$deadline', '$status', $nominal)");
         $message = 'Beasiswa baru berhasil ditambahkan!';
     }
 }
@@ -62,7 +62,7 @@ if (isset($_GET['edit'])) {
 
 $beasiswaList = fetchAll("
     SELECT b.*, COUNT(p.id) as total_pendaftar,
-           SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as total_diterima
+    SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as total_diterima
     FROM beasiswa b
     LEFT JOIN pendaftaran p ON b.id = p.beasiswa_id
     GROUP BY b.id
@@ -223,16 +223,16 @@ $beasiswaList = fetchAll("
                             <td><?= date('d M Y', strtotime($b['deadline'])) ?></td>
                             <td>
                                 <a href="kelola_beasiswa.php?toggle=<?= $b['id'] ?>"
-                                   class="status-badge <?= $b['status'] === 'aktif' ? 'status-diterima' : 'status-ditolak' ?>"
-                                   onclick="return confirm('Ubah status beasiswa ini?')" style="cursor:pointer;text-decoration:none">
+                                class="status-badge <?= $b['status'] === 'aktif' ? 'status-diterima' : 'status-ditolak' ?>"
+                                onclick="return confirm('Ubah status beasiswa ini?')" style="cursor:pointer;text-decoration:none">
                                     <?= $b['status'] === 'aktif' ? '🟢 Aktif' : '🔴 Nonaktif' ?>
                                 </a>
                             </td>
                             <td class="td-actions">
                                 <a href="kelola_beasiswa.php?edit=<?= $b['id'] ?>" class="btn-edit">Edit</a>
                                 <a href="kelola_beasiswa.php?delete=<?= $b['id'] ?>"
-                                   class="btn-delete"
-                                   onclick="return confirm('Hapus beasiswa ini? Semua pendaftaran terkait akan ikut terhapus!')">Hapus</a>
+                                class="btn-delete"
+                                onclick="return confirm('Hapus beasiswa ini? Semua pendaftaran terkait akan ikut terhapus!')">Hapus</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

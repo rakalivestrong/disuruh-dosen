@@ -8,8 +8,8 @@ require_once __DIR__ . '/../config/db.php';
 
 $mahasiswaList = fetchAll("
     SELECT u.*, 
-           COUNT(p.id) as total_daftar,
-           SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as total_diterima
+    COUNT(p.id) as total_daftar,
+    SUM(CASE WHEN p.status='diterima' THEN 1 ELSE 0 END) as total_diterima
     FROM users u
     LEFT JOIN pendaftaran p ON u.id = p.user_id
     WHERE u.role = 'mahasiswa'
