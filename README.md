@@ -164,7 +164,3 @@ project/
 **Upload file gagal?**
 - Pastikan folder `uploads/` ada dan writable
 - Cek `upload_max_filesize` di `php.ini` (set ke 10M)
-
-**Halaman tidak ditemukan?**
-- Pastikan Apache sudah running di XAMPP
-- Cek URL sudah benar: `http://localhost/project/`
