@@ -8,7 +8,8 @@ require_once __DIR__ . '/../config/db.php';
 $userId = $_SESSION['user_id'];
 
 $riwayat = fetchAll("
-    SELECT p.*, b.nama_beasiswa, b.nominal, b.deadline
+    SELECT p.*, b.nama_beasiswa, b.nominal, b.deadline as deadline_beasiswa_terkini,
+    COALESCE(p.deadline_snapshot, b.deadline) as deadline_tampil
     FROM pendaftaran p
     JOIN beasiswa b ON p.beasiswa_id = b.id
     WHERE p.user_id = $userId
@@ -68,7 +69,7 @@ $riwayat = fetchAll("
                             <td><?= htmlspecialchars($r['nim']) ?></td>
                             <td><?= number_format($r['ipk'], 2) ?></td>
                             <td><?= formatRupiah($r['nominal']) ?></td>
-                            <td><?= date('d M Y', strtotime($r['deadline'])) ?></td>
+                            <td><?= date('d M Y', strtotime($r['deadline_tampil'])) ?></td>
                             <td><?= date('d M Y', strtotime($r['created_at'])) ?></td>
                             <td>
                                 <span class="status-badge status-<?= $r['status'] ?>">

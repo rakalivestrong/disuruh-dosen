@@ -31,6 +31,18 @@ $aktivitasTerbaru = fetchAll("
 ");
 
 $superNama = $_SESSION['user_nama'];
+$superId = $_SESSION['user_id'];
+
+// Bug 5 Fix: Notifikasi untuk superadmin
+$notif = fetchAll("SELECT * FROM notifikasi WHERE user_id = $superId ORDER BY created_at DESC LIMIT 15");
+$notifCount = fetchOne("SELECT COUNT(*) as c FROM notifikasi WHERE user_id = $superId AND dibaca = 0")['c'];
+
+// Mark as read via AJAX
+if (isset($_GET['mark_read']) && $_GET['mark_read'] === '1') {
+    query("UPDATE notifikasi SET dibaca = 1 WHERE user_id = $superId");
+    echo json_encode(['success' => true]);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -44,6 +56,7 @@ $superNama = $_SESSION['user_nama'];
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="../assets/css/superadmin.css">
+    <link rel="stylesheet" href="../assets/css/notif.css">
 </head>
 <body class="dashboard-page superadmin-page">
     <!-- Sidebar -->
@@ -100,6 +113,38 @@ $superNama = $_SESSION['user_nama'];
                 <p>Selamat datang, <strong><?= htmlspecialchars($superNama) ?></strong> &bull; <?= date('d F Y') ?></p>
             </div>
             <div class="sa-header-badge">
+                <!-- Bug 5 Fix: Notification Bell untuk Super Admin -->
+                <div class="notif-wrapper" id="notifWrapper" style="margin-right:12px;">
+                    <button class="notif-badge" id="notifBtn" onclick="toggleNotif()" title="Notifikasi">
+                        <span>🔔</span>
+                        <?php if ($notifCount > 0): ?>
+                        <span class="badge-count" id="badgeCount"><?= $notifCount ?></span>
+                        <?php endif; ?>
+                    </button>
+                    <div class="notif-dropdown hidden" id="notifDropdown">
+                        <div class="notif-dd-header">
+                            <span>🔔 Notifikasi Super Admin</span>
+                            <?php if ($notifCount > 0): ?>
+                            <button onclick="markAllRead()" class="notif-mark-btn">Tandai semua dibaca</button>
+                            <?php endif; ?>
+                        </div>
+                        <div class="notif-dd-body">
+                            <?php if (empty($notif)): ?>
+                            <div class="notif-empty">📭 Belum ada notifikasi</div>
+                            <?php else: ?>
+                            <?php foreach ($notif as $n): ?>
+                            <div class="notif-dd-item <?= $n['dibaca'] ? '' : 'unread' ?>">
+                                <div class="notif-dot"></div>
+                                <div class="notif-content">
+                                    <p><?= htmlspecialchars($n['pesan']) ?></p>
+                                    <span><?= date('d M Y, H:i', strtotime($n['created_at'])) ?></span>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
                 <span class="crown-icon">👑</span>
                 <span>Full Control</span>
             </div>

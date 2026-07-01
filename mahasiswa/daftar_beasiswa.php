@@ -10,7 +10,9 @@ $beasiswaTersedia = fetchAll("
     SELECT b.* FROM beasiswa b 
     WHERE b.status = 'aktif' 
     AND b.id NOT IN (
-        SELECT beasiswa_id FROM pendaftaran WHERE user_id = $userId
+        SELECT beasiswa_id FROM pendaftaran 
+        WHERE user_id = $userId 
+        AND status IN ('menunggu', 'diterima')
     )
     ORDER BY b.deadline ASC
 ");

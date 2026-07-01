@@ -25,8 +25,8 @@ if (!$pendaftaran) {
     exit;
 }
 
-$backUrl = $isAdmin ? 'kelola_pendaftaran.php' : 'dashboard.php';
-$basePath = $isAdmin ? '../' : '../';
+$backUrl = $isAdmin ? 'kelola_pendaftaran.php' : '../mahasiswa/dashboard.php';
+$basePath = '../';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -55,9 +55,9 @@ $basePath = $isAdmin ? '../' : '../';
             <a href="<?= $basePath ?>admin/kelola_pendaftaran.php" class="nav-item active"><span class="ni-icon">📋</span><span>Kelola Pendaftaran</span></a>
             <a href="<?= $basePath ?>admin/kelola_mahasiswa.php" class="nav-item"><span class="ni-icon">👥</span><span>Data Mahasiswa</span></a>
             <?php else: ?>
-            <a href="<?= $basePath ?>mahasiswa/dashboard.php" class="nav-item active"><span class="ni-icon">🏠</span><span>Dashboard</span></a>
-            <a href="<?= $basePath ?>mahasiswa/daftar_beasiswa.php" class="nav-item"><span class="ni-icon">🎓</span><span>Daftar Beasiswa</span></a>
-            <a href="<?= $basePath ?>mahasiswa/riwayat.php" class="nav-item"><span class="ni-icon">📋</span><span>Riwayat</span></a>
+            <a href="../mahasiswa/dashboard.php" class="nav-item active"><span class="ni-icon">🏠</span><span>Dashboard</span></a>
+            <a href="../mahasiswa/daftar_beasiswa.php" class="nav-item"><span class="ni-icon">🎓</span><span>Daftar Beasiswa</span></a>
+            <a href="../mahasiswa/riwayat.php" class="nav-item"><span class="ni-icon">📋</span><span>Riwayat</span></a>
             <?php endif; ?>
         </nav>
         <div class="sidebar-footer">
@@ -154,7 +154,11 @@ $basePath = $isAdmin ? '../' : '../';
                     <span class="detail-val" style="color:var(--primary-light)"><?= formatRupiah($pendaftaran['nominal']) ?></span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Deadline</span>
+                    <span class="detail-label">Deadline Saat Daftar</span>
+                    <span class="detail-val"><?= date('d M Y', strtotime($pendaftaran['deadline_snapshot'] ?: $pendaftaran['deadline'])) ?></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Deadline Sekarang</span>
                     <span class="detail-val"><?= date('d M Y', strtotime($pendaftaran['deadline'])) ?></span>
                 </div>
             </div>

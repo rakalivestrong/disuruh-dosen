@@ -36,6 +36,71 @@ $perBulan = fetchAll("
 ");
 
 $maxBulan = max(array_column($perBulan, 'total') ?: [1]);
+
+// ============================================
+// Bug 6 Fix: Export Excel (CSV format)
+// ============================================
+if (isset($_GET['export']) && $_GET['export'] === 'excel') {
+    $exportData = fetchAll("
+        SELECT 
+            p.id,
+            u.nama as mahasiswa_nama,
+            u.email,
+            p.nim,
+            p.jurusan,
+            p.semester,
+            p.ipk,
+            p.penghasilan_ortu,
+            b.nama_beasiswa,
+            b.nominal,
+            COALESCE(p.deadline_snapshot, b.deadline) as deadline,
+            p.status,
+            p.catatan_admin,
+            p.created_at
+        FROM pendaftaran p
+        JOIN users u ON p.user_id = u.id
+        JOIN beasiswa b ON p.beasiswa_id = b.id
+        ORDER BY p.created_at DESC
+    ");
+
+    $filename = 'Laporan_Beasiswa_Admin_' . date('Y-m-d') . '.csv';
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+
+    $out = fopen('php://output', 'w');
+    fprintf($out, chr(0xEF).chr(0xBB).chr(0xBF));
+
+    fputcsv($out, [
+        'No', 'Nama Mahasiswa', 'Email', 'NIM', 'Jurusan', 'Semester',
+        'IPK', 'Penghasilan Ortu (Rp)', 'Nama Beasiswa', 'Dana/Bulan (Rp)',
+        'Deadline', 'Status', 'Catatan Admin', 'Tanggal Daftar'
+    ]);
+
+    foreach ($exportData as $i => $row) {
+        $statusLabel = ['menunggu' => 'Menunggu', 'diterima' => 'Diterima', 'ditolak' => 'Ditolak'];
+        fputcsv($out, [
+            $i + 1,
+            $row['mahasiswa_nama'],
+            $row['email'],
+            $row['nim'],
+            $row['jurusan'],
+            $row['semester'],
+            number_format($row['ipk'], 2, '.', ''),
+            $row['penghasilan_ortu'],
+            $row['nama_beasiswa'],
+            $row['nominal'],
+            $row['deadline'],
+            $statusLabel[$row['status']] ?? $row['status'],
+            $row['catatan_admin'] ?? '',
+            date('d/m/Y H:i', strtotime($row['created_at']))
+        ]);
+    }
+
+    fclose($out);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -71,7 +136,12 @@ $maxBulan = max(array_column($perBulan, 'total') ?: [1]);
         <header class="dash-header">
             <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
             <div class="dash-header-info"><h2>Laporan & Statistik</h2><p>Ringkasan data sistem beasiswa</p></div>
-            <button onclick="window.print()" class="btn-outline">🖨️ Print</button>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <button onclick="window.print()" class="btn-outline">🖨️ Print</button>
+                <a href="?export=excel" class="btn-sm-primary" style="text-decoration:none;padding:8px 16px;display:inline-flex;align-items:center;gap:6px;">
+                    📅 Export Excel
+                </a>
+            </div>
         </header>
 
         <!-- Stats -->

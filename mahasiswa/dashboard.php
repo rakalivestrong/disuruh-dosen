@@ -18,9 +18,12 @@ $pendaftaran = fetchAll("
     ORDER BY p.created_at DESC
 ");
 
-// Beasiswa tersedia (belum didaftar user)
-$daftarBeasiswaId = array_column($pendaftaran, 'beasiswa_id');
-$excludeClause = !empty($daftarBeasiswaId) ? 'AND id NOT IN (' . implode(',', $daftarBeasiswaId) . ')' : '';
+// Beasiswa tersedia (exclude yang statusnya menunggu/diterima saja, yang ditolak bisa daftar ulang)
+$daftarBeasiswaAktifId = array_column(
+    array_filter($pendaftaran, fn($p) => in_array($p['status'], ['menunggu', 'diterima'])),
+    'beasiswa_id'
+);
+$excludeClause = !empty($daftarBeasiswaAktifId) ? 'AND id NOT IN (' . implode(',', $daftarBeasiswaAktifId) . ')' : '';
 $beasiswaTersedia = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' $excludeClause ORDER BY deadline ASC");
 
 // Notifikasi (semua, bukan hanya yang belum dibaca)

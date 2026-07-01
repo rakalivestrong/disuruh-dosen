@@ -16,8 +16,9 @@ if (!$beasiswa) {
     exit;
 }
 
-// Cek sudah daftar
-$sudahDaftar = fetchOne("SELECT id FROM pendaftaran WHERE user_id = $userId AND beasiswa_id = $beasiswaId");
+// Cek sudah daftar (hanya blok jika status menunggu atau diterima)
+// Jika ditolak: boleh daftar ulang
+$sudahDaftar = fetchOne("SELECT id FROM pendaftaran WHERE user_id = $userId AND beasiswa_id = $beasiswaId AND status IN ('menunggu', 'diterima')");
 if ($sudahDaftar) {
     header('Location: dashboard.php?already=1');
     exit;
@@ -75,13 +76,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ktm = $uploadedFiles['foto_ktm'] ?? '';
             $transkrip = $uploadedFiles['transkrip'] ?? '';
             $surat = $uploadedFiles['surat_tidak_mampu'] ?? '';
+            // Bug 4 Fix: Simpan deadline_snapshot saat mendaftar
+            $deadlineSnapshot = $beasiswa['deadline'];
 
-            query("INSERT INTO pendaftaran (user_id, beasiswa_id, nim, jurusan, semester, ipk, penghasilan_ortu, alasan, foto_ktp, foto_ktm, transkrip, surat_tidak_mampu)
-            VALUES ($userId, $beasiswaId, '$nim', '$jurusan', $semester, $ipk, $penghasilan, '$alasan', '$ktp', '$ktm', '$transkrip', '$surat')");
+            query("INSERT INTO pendaftaran (user_id, beasiswa_id, nim, jurusan, semester, ipk, penghasilan_ortu, alasan, foto_ktp, foto_ktm, transkrip, surat_tidak_mampu, deadline_snapshot)
+            VALUES ($userId, $beasiswaId, '$nim', '$jurusan', $semester, $ipk, $penghasilan, '$alasan', '$ktp', '$ktm', '$transkrip', '$surat', '$deadlineSnapshot')");
 
-            // Notifikasi
+            // Notifikasi untuk mahasiswa
             $pesanNotif = mysqli_real_escape_string($conn, "Pendaftaran beasiswa " . $beasiswa['nama_beasiswa'] . " berhasil dikirim dan sedang diproses.");
             query("INSERT INTO notifikasi (user_id, pesan) VALUES ($userId, '$pesanNotif')");
+
+            // Bug 5 Fix: Notifikasi ke semua admin dan superadmin
+            $namaBeasiswaEsc = mysqli_real_escape_string($conn, $beasiswa['nama_beasiswa']);
+            $userNamaEsc = mysqli_real_escape_string($conn, $_SESSION['user_nama']);
+            $pesanAdmin = "Pendaftaran baru masuk: $userNamaEsc mendaftar beasiswa $namaBeasiswaEsc. Segera review!";
+            $admins = fetchAll("SELECT id FROM users WHERE role IN ('admin', 'super_admin')");
+            foreach ($admins as $admin) {
+                $adminId = $admin['id'];
+                query("INSERT INTO notifikasi (user_id, pesan) VALUES ($adminId, '$pesanAdmin')");
+            }
 
             header('Location: dashboard.php?success=1');
             exit;
