@@ -11,13 +11,16 @@ USE db_beasiswa;
 -- agar tidak berubah ketika admin edit beasiswa
 -- ============================================
 ALTER TABLE pendaftaran 
-ADD COLUMN deadline_snapshot DATE NULL AFTER beasiswa_id;
+ADD deadline_snapshot DATE NULL;
 
 -- Update data yang sudah ada: isi dengan deadline beasiswa saat ini
-UPDATE pendaftaran p
-JOIN beasiswa b ON p.beasiswa_id = b.id
-SET p.deadline_snapshot = b.deadline
-WHERE p.deadline_snapshot IS NULL;
+UPDATE pendaftaran
+SET deadline_snapshot = (
+    SELECT deadline 
+    FROM beasiswa 
+    WHERE beasiswa.id = pendaftaran.beasiswa_id
+)
+WHERE deadline_snapshot IS NULL;
 
 -- ============================================
 -- FIX BUG 5: Notifikasi untuk admin
