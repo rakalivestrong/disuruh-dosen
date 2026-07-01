@@ -11,7 +11,8 @@ $userNama = $_SESSION['user_nama'];
 
 // Data pendaftaran user
 $pendaftaran = fetchAll("
-    SELECT p.*, b.nama_beasiswa, b.nominal, b.deadline 
+    SELECT p.*, b.nama_beasiswa, b.nominal, b.deadline as deadline_beasiswa_terkini,
+    COALESCE(p.deadline_snapshot, b.deadline) as deadline_tampil
     FROM pendaftaran p 
     JOIN beasiswa b ON p.beasiswa_id = b.id 
     WHERE p.user_id = $userId 
@@ -212,7 +213,7 @@ $ditolak = count(array_filter($pendaftaran, fn($p) => $p['status'] === 'ditolak'
                                 <small>Didaftar: <?= date('d M Y', strtotime($p['created_at'])) ?></small>
                             </td>
                             <td><?= formatRupiah($p['nominal']) ?>/bln</td>
-                            <td><?= date('d M Y', strtotime($p['deadline'])) ?></td>
+                            <td><?= date('d M Y', strtotime($p['deadline_tampil'])) ?></td>
                             <td>
                                 <span class="status-badge status-<?= $p['status'] ?>">
                                     <?php

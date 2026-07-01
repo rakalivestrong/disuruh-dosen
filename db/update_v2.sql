@@ -11,7 +11,7 @@ USE db_beasiswa;
 -- agar tidak berubah ketika admin edit beasiswa
 -- ============================================
 ALTER TABLE pendaftaran 
-ADD COLUMN IF NOT EXISTS deadline_snapshot DATE NULL AFTER beasiswa_id;
+ADD COLUMN deadline_snapshot DATE NULL AFTER beasiswa_id;
 
 -- Update data yang sudah ada: isi dengan deadline beasiswa saat ini
 UPDATE pendaftaran p
