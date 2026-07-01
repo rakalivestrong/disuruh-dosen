@@ -121,6 +121,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'excel') {
     fclose($out);
     exit;
 }
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
