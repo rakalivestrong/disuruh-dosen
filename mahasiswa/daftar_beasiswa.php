@@ -6,13 +6,20 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'mahasiswa') {
 }
 require_once __DIR__ . '/../config/db.php';
 $userId = $_SESSION['user_id'];
+$tahunIni = date('Y');
+// Exclude beasiswa jika:
+// 1. Ada pendaftaran aktif (menunggu/diterima) - kapanpun tahunnya
+// 2. Sudah mendaftar beasiswa yang sama di tahun ini (walau ditolak)
 $beasiswaTersedia = fetchAll("
     SELECT b.* FROM beasiswa b 
     WHERE b.status = 'aktif' 
     AND b.id NOT IN (
         SELECT beasiswa_id FROM pendaftaran 
         WHERE user_id = $userId 
-        AND status IN ('menunggu', 'diterima')
+        AND (
+            status IN ('menunggu', 'diterima')
+            OR YEAR(created_at) = $tahunIni
+        )
     )
     ORDER BY b.deadline ASC
 ");

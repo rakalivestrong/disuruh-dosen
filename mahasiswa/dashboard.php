@@ -18,12 +18,20 @@ $pendaftaran = fetchAll("
     ORDER BY p.created_at DESC
 ");
 
-// Beasiswa tersedia (exclude yang statusnya menunggu/diterima saja, yang ditolak bisa daftar ulang)
+// Beasiswa tersedia dengan validasi gap 1 tahun:
+// - Exclude beasiswa yang aktif (menunggu/diterima) kapanpun
+// - Exclude beasiswa yang sudah didaftar di tahun ini (walau ditolak)
+$tahunIni = date('Y');
 $daftarBeasiswaAktifId = array_column(
     array_filter($pendaftaran, fn($p) => in_array($p['status'], ['menunggu', 'diterima'])),
     'beasiswa_id'
 );
-$excludeClause = !empty($daftarBeasiswaAktifId) ? 'AND id NOT IN (' . implode(',', $daftarBeasiswaAktifId) . ')' : '';
+$daftarBeasiswaTahunIniId = array_column(
+    array_filter($pendaftaran, fn($p) => date('Y', strtotime($p['created_at'])) == $tahunIni),
+    'beasiswa_id'
+);
+$excludeIds = array_unique(array_merge($daftarBeasiswaAktifId, $daftarBeasiswaTahunIniId));
+$excludeClause = !empty($excludeIds) ? 'AND id NOT IN (' . implode(',', $excludeIds) . ')' : '';
 $beasiswaTersedia = fetchAll("SELECT * FROM beasiswa WHERE status = 'aktif' $excludeClause ORDER BY deadline ASC");
 
 // Notifikasi (semua, bukan hanya yang belum dibaca)

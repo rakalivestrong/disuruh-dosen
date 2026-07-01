@@ -16,11 +16,28 @@ if (!$beasiswa) {
     exit;
 }
 
-// Cek sudah daftar (hanya blok jika status menunggu atau diterima)
-// Jika ditolak: boleh daftar ulang
-$sudahDaftar = fetchOne("SELECT id FROM pendaftaran WHERE user_id = $userId AND beasiswa_id = $beasiswaId AND status IN ('menunggu', 'diterima')");
-if ($sudahDaftar) {
+// Cek sudah daftar dengan validasi gap 1 tahun:
+// - status menunggu/diterima: blok permanen
+// - status ditolak tapi di tahun yang SAMA: blok ("sudah mendaftar tahun ini")
+// - status ditolak di tahun SEBELUMNYA: boleh daftar ulang
+$tahunIni = date('Y');
+$sudahDaftarAktif = fetchOne(
+    "SELECT id FROM pendaftaran 
+     WHERE user_id = $userId AND beasiswa_id = $beasiswaId 
+     AND status IN ('menunggu', 'diterima')"
+);
+$sudahDaftarTahunIni = fetchOne(
+    "SELECT id FROM pendaftaran 
+     WHERE user_id = $userId AND beasiswa_id = $beasiswaId 
+     AND YEAR(created_at) = $tahunIni"
+);
+
+if ($sudahDaftarAktif) {
     header('Location: dashboard.php?already=1');
+    exit;
+}
+if ($sudahDaftarTahunIni) {
+    header('Location: dashboard.php?already_year=1');
     exit;
 }
 

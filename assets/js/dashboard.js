@@ -52,7 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('✅ Pendaftaran berhasil dikirim!', 'success');
     }
     if (params.get('already') === '1') {
-        showToast('⚠️ Kamu sudah mendaftar beasiswa ini.', 'warning');
+        showToast('⚠️ Kamu sudah mendaftar beasiswa ini dan sedang diproses.', 'warning');
+    }
+    if (params.get('already_year') === '1') {
+        showToast('🗓️ Kamu sudah mendaftar beasiswa ini tahun ini. Silakan coba lagi tahun depan.', 'warning');
     }
 });
 
